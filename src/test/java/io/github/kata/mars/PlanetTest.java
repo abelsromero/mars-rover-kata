@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 
-public class MarsRoverTest {
+public class PlanetTest {
 
     @Test
     public void should_create_planet() {
