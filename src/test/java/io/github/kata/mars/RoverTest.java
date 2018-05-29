@@ -65,4 +65,36 @@ public class RoverTest {
         assertThat(rover.getY()).isEqualTo(3);
         assertThat(rover.getDirection()).isEqualTo(Direction.E);
     }
+
+    @Test
+    public void should_execute_two_instructions_and_rotate_right() {
+        // give
+        final RoverHandler rover = Planet.create(10)
+            .placeRover(2, 3, Direction.E);
+        final String command = "rrrr";
+        rover.program(command);
+        // when
+        rover.execute(2);
+        //
+        assertThat(rover.pendingCommands()).isEqualTo(command.substring(2));
+        assertThat(rover.getX()).isEqualTo(2);
+        assertThat(rover.getY()).isEqualTo(3);
+        assertThat(rover.getDirection()).isEqualTo(Direction.W);
+    }
+
+    @Test
+    public void should_execute_instructions_and_rotate() {
+        // give
+        final RoverHandler rover = Planet.create(10)
+            .placeRover(2, 3, Direction.N);
+        final String command = "llrrrlrr";
+        rover.program(command);
+        // when
+        rover.execute(command.length());
+        //
+        assertThat(rover.pendingCommands()).isEqualTo("");
+        assertThat(rover.getX()).isEqualTo(2);
+        assertThat(rover.getY()).isEqualTo(3);
+        assertThat(rover.getDirection()).isEqualTo(Direction.S);
+    }
 }
