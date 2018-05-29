@@ -19,7 +19,7 @@ public class PlanetTest {
     public void should_place_rover() {
         // when
         Planet p = Planet.create(10);
-        p.placeRover(2, 3);
+        p.placeRover(2, 3, Direction.N);
         // then
 
         Assertions.assertThat(p).isNotNull();
@@ -29,7 +29,7 @@ public class PlanetTest {
     public void should_fail_when_rover_x_is_negative() {
         // when
         Planet p = Planet.create(10);
-        p.placeRover(-1, 3);
+        p.placeRover(-1, 3, Direction.S);
         // then
     }
 
@@ -37,7 +37,7 @@ public class PlanetTest {
     public void should_fail_when_rover_y_is_negative() {
         // when
         Planet p = Planet.create(10);
-        p.placeRover(4, -1);
+        p.placeRover(4, -1, Direction.E);
         // then
     }
 
@@ -46,7 +46,7 @@ public class PlanetTest {
         // when
         final int size = 10;
         Planet p = Planet.create(size);
-        p.placeRover(size + 1, 5);
+        p.placeRover(size + 1, 5, Direction.W);
         // then
     }
 
@@ -56,7 +56,25 @@ public class PlanetTest {
         // when
         final int size = 10;
         Planet p = Planet.create(size);
-        p.placeRover(2, size + 1);
+        p.placeRover(2, size + 1, Direction.N);
+        // then
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_fail_when_direction_is_not_valid() {
+        // when
+        final int size = 10;
+        Planet p = Planet.create(size);
+        p.placeRover(2, size + 1, "4");
+        // then
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_fail_when_direction_is_null() {
+        // when
+        final int size = 10;
+        Planet p = Planet.create(size);
+        p.placeRover(2, size + 1, null);
         // then
     }
 
