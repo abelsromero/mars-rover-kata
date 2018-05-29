@@ -1,25 +1,24 @@
 package io.github.kata.mars;
 
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class RoverTest {
 
-/*
     @Test
-    public void should_recieve_input() {
+    public void should_receive_a_command() {
         // give
         final RoverHandler rover = Planet.create(10)
-            .placeRover(2,3);
+            .placeRover(2, 3, Direction.E);
+        final String command = "FBFBFBFB";
         // when
-        rover.program("")
+        rover.program(command);
         // then
-        Assertions.assertThat(p).isNotNull();
+        assertThat(rover.pendingCommands()).isEqualTo(command);
     }
-*/
-
 
 
 }
