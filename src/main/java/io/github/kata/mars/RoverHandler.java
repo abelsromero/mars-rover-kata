@@ -4,6 +4,8 @@ import lombok.Getter;
 
 public class RoverHandler {
 
+    private final Planet planet;
+
     @Getter
     private int x;
     @Getter
@@ -14,10 +16,11 @@ public class RoverHandler {
     private String command;
     private int cursor = 0;
 
-    public RoverHandler(int x, int y, String direction) {
+    public RoverHandler(int x, int y, String direction, Planet planet) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.planet = planet;
     }
 
     public void program(String command) {
@@ -42,7 +45,7 @@ public class RoverHandler {
             if (isMoveInstruction(instruction)) {
                 move(instruction);
             }
-            if (isRotateinstruction(instruction)) {
+            else if (isRotateinstruction(instruction)) {
                 rotate(instruction);
             }
             cursor++;
@@ -52,12 +55,8 @@ public class RoverHandler {
     private void rotate(char instruction) {
         final String directions = Direction.N + Direction.E + Direction.S + Direction.W;
         int currentDirectionPos = directions.indexOf(direction);
-        if (instruction == 'l') {
-            this.direction = String.valueOf(directions.charAt((currentDirectionPos + 1) % 4));
-        } else if (instruction == 'r') {
-            // add 4 to ensure positive module
-            this.direction = String.valueOf(directions.charAt((currentDirectionPos - 1 + 4) % 4));
-        }
+        // 3 = -1+4; to ensure positive module
+        this.direction = String.valueOf(directions.charAt((currentDirectionPos + (instruction == 'l' ? 3 : 1)) % 4));
     }
 
     private boolean isRotateinstruction(char instruction) {
@@ -67,34 +66,50 @@ public class RoverHandler {
     private void move(char instruction) {
         if (direction.equals(Direction.N)) {
             if (instruction == 'f') {
-                y++;
+                increaseY();
             } else if (instruction == 'b') {
-                y--;
+                decreaseY();
             }
         } else if (direction.equals(Direction.E)) {
             if (instruction == 'f') {
-                x++;
+                increaseX();
             } else if (instruction == 'b') {
-                x--;
+                decreaseX();
             }
         } else if (direction.equals(Direction.S)) {
             if (instruction == 'f') {
-                y--;
+                decreaseY();
             } else if (instruction == 'b') {
-                y++;
+                increaseY();
             }
         } else if (direction.equals(Direction.W)) {
             if (instruction == 'f') {
-                x--;
+                decreaseX();
             } else if (instruction == 'b') {
-                x++;
+                increaseX();
             }
         }
+    }
+
+    private void decreaseX() {
+        x = (x - 1 + planet.getSize()) % planet.getSize();
+    }
+
+    private void increaseX() {
+        x = (x + 1) % planet.getSize();
+    }
+
+    private void decreaseY() {
+        // avoid negative modules
+        y = (y - 1 + planet.getSize()) % planet.getSize();
+    }
+
+    private void increaseY() {
+        y = (y + 1) % planet.getSize();
     }
 
     private boolean isMoveInstruction(char instruction) {
         return instruction == 'f' || instruction == 'b';
     }
-
 
 }
