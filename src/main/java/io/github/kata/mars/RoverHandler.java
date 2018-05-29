@@ -90,6 +90,9 @@ public class RoverHandler {
                 targetX = increaseX();
             }
         }
+        if (planet.hasObstacleAt(targetX, targetY))
+            throw new CrashException("Something is in the way: cant' move!");
+
         x = targetX;
         y = targetY;
     }

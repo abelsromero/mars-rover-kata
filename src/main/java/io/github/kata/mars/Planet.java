@@ -48,4 +48,8 @@ public class Planet {
     public int getObstaclesCount() {
         return obstaclesCount;
     }
+
+    public boolean hasObstacleAt(int x, int y) {
+        return obstacles[x][y] == 1;
+    }
 }
