@@ -1,0 +1,12 @@
+= Maven quickstart project
+
+This is a template Maven project with my common basic configurations.
+
+== Setup
+
+This project contains:
+
+* link:http://editorconfig.org/[editorconfig] settings
+* link:https://projectlombok.org/[Lombok]
+* Updated JUnit4 version
+* AssertJ + optional Hamcrest dependencies
