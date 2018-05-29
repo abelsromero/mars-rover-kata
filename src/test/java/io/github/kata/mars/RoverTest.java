@@ -49,4 +49,20 @@ public class RoverTest {
         // when
         rover.program(command);
     }
+
+    @Test
+    public void should_execute_a_instruction_and_move() {
+        // give
+        final RoverHandler rover = Planet.create(10)
+            .placeRover(2, 3, Direction.E);
+        final String command = "fblr";
+        rover.program(command);
+        // when
+        rover.execute(1);
+        //
+        assertThat(rover.pendingCommands()).isEqualTo(command.substring(1));
+        assertThat(rover.getX()).isEqualTo(3);
+        assertThat(rover.getY()).isEqualTo(3);
+        assertThat(rover.getDirection()).isEqualTo(Direction.E);
+    }
 }
