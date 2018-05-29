@@ -4,6 +4,8 @@ package io.github.kata.mars;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class PlanetTest {
 
@@ -12,7 +14,7 @@ public class PlanetTest {
         // when
         Planet p = Planet.create(10);
         // then
-        Assertions.assertThat(p).isNotNull();
+        assertThat(p).isNotNull();
     }
 
     @Test
@@ -22,7 +24,7 @@ public class PlanetTest {
         p.placeRover(2, 3, Direction.N);
         // then
 
-        Assertions.assertThat(p).isNotNull();
+        assertThat(p).isNotNull();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -75,6 +77,27 @@ public class PlanetTest {
         final int size = 10;
         Planet p = Planet.create(size);
         p.placeRover(2, size + 1, null);
+        // then
+    }
+
+    @Test
+    public void should_place_obstacles() {
+        // when
+        final int size = 10;
+        Planet p = Planet.create(size);
+        p.placeObstacle(3, 3);
+        p.placeObstacle(4, 4);
+        // then
+        assertThat(p.getObstaclesCount()).isEqualTo(2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_fail_when_placin_obstacles_in_same_position() {
+        // when
+        final int size = 10;
+        Planet p = Planet.create(size);
+        p.placeObstacle(3, 3);
+        p.placeObstacle(3, 3);
         // then
     }
 
