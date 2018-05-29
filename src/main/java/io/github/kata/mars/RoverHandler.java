@@ -16,7 +16,15 @@ public class RoverHandler {
     }
 
     public void program(String command) {
+        for (char c : command.toCharArray()) {
+            if (!isValidInstruction(c))
+                throw new IllegalArgumentException("Invalid instruction found: " + c);
+        }
         this.command = command;
+    }
+
+    private boolean isValidInstruction(char c) {
+        return c == 'f' || c == 'b' || c == 'l' || c == 'r';
     }
 
     public String pendingCommands() {
