@@ -44,8 +44,7 @@ public class RoverHandler {
             char instruction = command.charAt(cursor);
             if (isMoveInstruction(instruction)) {
                 move(instruction);
-            }
-            else if (isRotateinstruction(instruction)) {
+            } else if (isRotateinstruction(instruction)) {
                 rotate(instruction);
             }
             cursor++;
@@ -64,48 +63,52 @@ public class RoverHandler {
     }
 
     private void move(char instruction) {
+        int targetX = x;
+        int targetY = y;
         if (direction.equals(Direction.N)) {
             if (instruction == 'f') {
-                increaseY();
+                targetY = increaseY();
             } else if (instruction == 'b') {
-                decreaseY();
+                targetY = decreaseY();
             }
         } else if (direction.equals(Direction.E)) {
             if (instruction == 'f') {
-                increaseX();
+                targetX = increaseX();
             } else if (instruction == 'b') {
-                decreaseX();
+                targetX = decreaseX();
             }
         } else if (direction.equals(Direction.S)) {
             if (instruction == 'f') {
-                decreaseY();
+                targetY = decreaseY();
             } else if (instruction == 'b') {
-                increaseY();
+                targetY = increaseY();
             }
-        } else if (direction.equals(Direction.W)) {
+        } else /*if (direction.equals(Direction.W)) */{
             if (instruction == 'f') {
-                decreaseX();
+                targetX = decreaseX();
             } else if (instruction == 'b') {
-                increaseX();
+                targetX = increaseX();
             }
         }
+        x = targetX;
+        y = targetY;
     }
 
-    private void decreaseX() {
-        x = (x - 1 + planet.getSize()) % planet.getSize();
+    private int decreaseX() {
+        return (x - 1 + planet.getSize()) % planet.getSize();
     }
 
-    private void increaseX() {
-        x = (x + 1) % planet.getSize();
+    private int increaseX() {
+        return (x + 1) % planet.getSize();
     }
 
-    private void decreaseY() {
+    private int decreaseY() {
         // avoid negative modules
-        y = (y - 1 + planet.getSize()) % planet.getSize();
+        return (y - 1 + planet.getSize()) % planet.getSize();
     }
 
-    private void increaseY() {
-        y = (y + 1) % planet.getSize();
+    private int increaseY() {
+        return (y + 1) % planet.getSize();
     }
 
     private boolean isMoveInstruction(char instruction) {

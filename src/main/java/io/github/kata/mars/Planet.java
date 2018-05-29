@@ -35,13 +35,14 @@ public class Planet {
             throw new IllegalArgumentException("Invalid Y position");
     }
 
-    public void placeObstacle(int x, int y) {
+    public Planet placeObstacle(int x, int y) {
         checkPositions(x, y);
         if (obstacles[x][y] == 1)
             throw new IllegalArgumentException("Cannot place obstacle: position already used");
 
         obstacles[x][y] = 1;
         obstaclesCount++;
+        return this;
     }
 
     public int getObstaclesCount() {

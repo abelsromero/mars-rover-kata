@@ -129,4 +129,16 @@ public class RoverTest {
         assertThat(rover.getY()).isEqualTo(4);
         assertThat(rover.getDirection()).isEqualTo(Direction.E);
     }
+
+    @Test(expected = CrashException.class)
+    public void should_abort_if_obstacle_is_found() {
+        // give
+        final RoverHandler rover = Planet.create(5)
+            .placeObstacle(1,4)
+            .placeRover(2, 2, Direction.S);
+        final String command = "ffflbbb";
+        rover.program(command);
+        // when
+        rover.execute(command.length());
+    }
 }
